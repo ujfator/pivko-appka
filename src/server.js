@@ -9,10 +9,6 @@ app.listen(4000, function() {
     console.log('listening on 4000');
 });
 
-app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/fake.html')
-})
-
 MongoClient.connect('mongodb+srv://marek:marek@cluster0-jkdd5.azure.mongodb.net/pivka?retryWrites=true&w=majority', { useUnifiedTopology: true}, (err, client) => {
     if (err) return console.error(err);
     console.log('Connected to Database');
