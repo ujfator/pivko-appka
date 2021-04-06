@@ -4,15 +4,56 @@ import "shards-ui/dist/css/shards.min.css"
 import { Navbar, NavbarBrand, Card,
   CardHeader,
   CardTitle,
-  CardBody
+  CardBody,
+  Button,
+  FormTextarea 
  } from 'shards-react';
+ import axios from 'axios';
+ import React from 'react';
 
 function App() {
   return (
     <div className="App">
        <Navbar type="dark" theme="primary" expand="md">
-          <NavbarBrand href="#">Pivka</NavbarBrand>
+          <NavbarBrand>Pivka</NavbarBrand>
       </Navbar>
+      <Cards></Cards>
+    </div>
+  );
+}
+
+class Cards extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.createNewCard = this.createNewCard.bind(this);
+    this.getCards = this.getCards.bind(this);
+    this.state = {
+      cardText: '',
+      cards: [],
+    };
+  }
+  getCards() {
+    axios.get('/cards').then(function(value) {
+      this.setState({cards: [...this.state.cards, value]})
+    })
+  }
+  handleChange(e) {
+    this.setState({cardText: e.target.value});
+  }
+  createNewCard() {
+    axios
+			.post("/create", {text: this.state.cardText})
+			.then(function () {
+				axios.get('/');
+			})
+			.catch(function () {
+				throw("Error.")
+			});
+  }
+  render() {
+    return (
       <div className="content">
         <Card style={{ maxWidth: "300px" }}>
           <CardHeader>První várka</CardHeader>
@@ -25,9 +66,16 @@ function App() {
             <p>Chuť v pořádku, trochu do Ale. Příště 3kg sladu a 14l vody.</p>
           </CardBody>
         </Card>
+        <Card className="my-card">
+          <CardHeader>Vytvořit novou kartu</CardHeader>
+          <CardBody>
+            <FormTextarea className="text-area" onChange={this.handleChange}/>
+            <Button onClick={this.createNewCard}>Vytvořit záznam</Button>
+          </CardBody>
+        </Card>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
