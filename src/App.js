@@ -33,6 +33,7 @@ class Cards extends React.Component {
       cardText: '',
       cards: [],
     };
+    this.getCards();
   }
   getCards() {
     axios.get('/cards').then(function(value) {

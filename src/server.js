@@ -16,7 +16,7 @@ MongoClient.connect('mongodb+srv://marek:marek@cluster0-jkdd5.azure.mongodb.net/
     const db = client.db('pivka')
     const collection = db.collection('pivka')
 
-    app.get('/', function (req, res) {
+    app.get('/cards', function (req, res) {
         const pivka = collection.find();
         console.log(pivka);
     });
