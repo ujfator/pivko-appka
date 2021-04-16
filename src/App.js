@@ -47,7 +47,7 @@ class Cards extends React.Component {
     axios
 			.post("/create", {text: this.state.cardText})
 			.then(function () {
-				axios.get('/');
+				axios.get('/cards');
 			})
 			.catch(function () {
 				throw("Error.")
