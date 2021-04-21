@@ -6,7 +6,8 @@ import { Navbar, NavbarBrand, Card,
   CardTitle,
   CardBody,
   Button,
-  FormTextarea 
+  FormTextarea,
+  FormInput
  } from 'shards-react';
  import axios from 'axios';
  import React from 'react';
@@ -27,28 +28,35 @@ class Cards extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleChangeDate = this.handleChangeDate.bind(this);
     this.createNewCard = this.createNewCard.bind(this);
     this.getCards = this.getCards.bind(this);
     this.state = {
       cardText: '',
+      date: '',
       cards: [],
     };
     this.getCards();
   }
   getCards() {
-    axios.get('/cards').then(function(value) {
-      this.setState({cards: [...this.state.cards, value]})
+    axios.get('/cards').then((value) => {
+      console.log(value.data);
+      this.setState({cards: [...value.data]})
     })
   }
   handleChange(e) {
     this.setState({cardText: e.target.value});
   }
+  handleChangeDate(e) {
+    this.setState({cardDate: e.target.value});
+  }
   createNewCard() {
     axios
-			.post("/create", {text: this.state.cardText})
-			.then(function () {
-				axios.get('/cards');
-			})
+			.post('/cards', {
+        text: this.state.cardText,
+        date: this.state.cardDate,
+      })
+			.then(() => this.getCards())
 			.catch(function () {
 				throw("Error.")
 			});
@@ -56,25 +64,26 @@ class Cards extends React.Component {
   render() {
     return (
       <div className="content">
-        <Card style={{ maxWidth: "300px" }}>
-          <CardHeader>První várka</CardHeader>
-          <CardBody>
-            <CardTitle>Uvařeno cca 1.3.</CardTitle>
-            <p>Uvařeno z 5 kg sladu - 4 Plzeň, trochu Vídeň</p>
-            <p>Problém: hrnec o objemu 20 litrů nepojme 18.6 litru vodu a 5 kg sladu. </p>
-            <p>Pivo nalahvováno 13. - 20.3, po 2 týdnech není moc perlivé.</p>
-            <p>Mladina není dostatečně sladká. Z důvodu malého hrnce, čili málo sladiny, bylo nutno nastavovat vodou v poměru 7l mladiny na 4l vody.</p>
-            <p>Chuť v pořádku, trochu do Ale. Příště 3kg sladu a 14l vody.</p>
-          </CardBody>
-        </Card>
+        {
+          this.state?.cards.map((val, index) => 
+            <Card style={{ maxWidth: "300px" }} className="my-card">
+              <CardHeader>{val.date}</CardHeader>
+              <CardBody>
+                <CardTitle>{val.text}</CardTitle>
+                  
+              </CardBody>
+            </Card>
+          )
+        }
         <Card className="my-card">
           <CardHeader>Vytvořit novou kartu</CardHeader>
           <CardBody>
+            <FormInput placeholder="Datum" onChange={this.handleChangeDate}/>
             <FormTextarea className="text-area" onChange={this.handleChange}/>
             <Button onClick={this.createNewCard}>Vytvořit záznam</Button>
           </CardBody>
         </Card>
-      </div>
+       </div>
     );
   }
 }
