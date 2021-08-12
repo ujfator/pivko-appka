@@ -56,7 +56,7 @@ class Cards extends React.Component {
 
   deleteCard(id) {
     axios
-			.delete('/cards', {
+			.delete('/cards/' + id, {
         id
       })
 			.then(() => this.getCards())

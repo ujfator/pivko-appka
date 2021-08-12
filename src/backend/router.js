@@ -22,8 +22,8 @@ router.post('/', (req, res) => {
     }));
 });
 
-router.delete('/', (req, res) => {
-    Card.findByIdAndDelete(req.body.id)
+router.delete('/:id', (req, res) => {
+    Card.findOneAndDelete({id: req.body.id})
     .then(() => res.json({
         message: "Card deleted"
     }))
