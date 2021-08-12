@@ -10,5 +10,9 @@ const cardSchema = new Schema({
         type: String,
         required: true
     },
+    myId:  {
+        type: String,
+        required: true
+    }
 })
 module.exports = mongoose.model("Card", cardSchema, "pivka")

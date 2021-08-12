@@ -38,18 +38,33 @@ class Cards extends React.Component {
     };
     this.getCards();
   }
+
   getCards() {
     axios.get('/cards').then((value) => {
       console.log(value.data);
       this.setState({cards: [...value.data]})
     })
   }
+
   handleChange(e) {
     this.setState({cardText: e.target.value});
   }
+
   handleChangeDate(e) {
     this.setState({cardDate: e.target.value});
   }
+
+  deleteCard(id) {
+    axios
+			.delete('/cards', {
+        id
+      })
+			.then(() => this.getCards())
+			.catch(function () {
+				throw("Error.")
+			});
+  }
+
   createNewCard() {
     axios
 			.post('/cards', {
@@ -67,10 +82,12 @@ class Cards extends React.Component {
         {
           this.state?.cards.map((val, index) => 
             <Card style={{ maxWidth: "300px" }} className="my-card">
-              <CardHeader>{val.date}</CardHeader>
+              <CardHeader>
+                <div>{val.date}</div>
+                <Button onClick={() => this.deleteCard(val.id)}>Smazat</Button>
+              </CardHeader>
               <CardBody>
                 <CardTitle>{val.text}</CardTitle>
-                  
               </CardBody>
             </Card>
           )
