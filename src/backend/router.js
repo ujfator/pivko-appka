@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
 router.post('/', (req, res) => {
     const card = req.body;
     const id =  crypto.randomBytes(16).toString("hex");
-    new Card({text: card.text, date: card.date, myId: id}).save()
+    new Card({text: card.text, date: card.date, id: id}).save()
     .then(() => res.json({
         message: "Card created"
     }))
