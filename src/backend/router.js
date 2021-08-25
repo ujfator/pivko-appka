@@ -29,7 +29,7 @@ router.delete('/:id', (req, res) => {
     }))
     .catch(err => res.status(400).json({
         "error": err,
-        "message": "Error creating card"
+        "message": "Error deleting card"
     }));
 });
 
