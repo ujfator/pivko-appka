@@ -81,10 +81,12 @@ class Cards extends React.Component {
       <div className="content">
         {
           this.state?.cards.map((val, index) => 
-            <Card style={{ maxWidth: "300px" }} className="my-card">
+            <Card className="my-card">
               <CardHeader>
-                <div>{val.date}</div>
-                <Button onClick={() => this.deleteCard(val.id)}>Smazat</Button>
+                <div className="my-card-header">
+                  <div className="my-card-header-text">{val.date}</div>
+                  <Button onClick={() => this.deleteCard(val.id)}>Smazat</Button>
+                </div>
               </CardHeader>
               <CardBody>
                 <CardTitle>{val.text}</CardTitle>
@@ -97,7 +99,7 @@ class Cards extends React.Component {
           <CardBody>
             <FormInput placeholder="Datum" onChange={this.handleChangeDate}/>
             <FormTextarea className="text-area" onChange={this.handleChange}/>
-            <Button onClick={this.createNewCard}>Vytvořit záznam</Button>
+            <Button className ="new-card-button" onClick={this.createNewCard}>Vytvořit záznam</Button>
           </CardBody>
         </Card>
        </div>
