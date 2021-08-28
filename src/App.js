@@ -1,6 +1,6 @@
-import './App.css';
-import "bootstrap/dist/css/bootstrap.min.css";
-import "shards-ui/dist/css/shards.min.css"
+import './App.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'shards-ui/dist/css/shards.min.css';
 import { Navbar, NavbarBrand, Card,
   CardHeader,
   CardTitle,
@@ -61,7 +61,7 @@ class Cards extends React.Component {
       })
 			.then(() => this.getCards())
 			.catch(function () {
-				throw("Error.")
+				throw('Error.')
 			});
   }
 
@@ -73,7 +73,7 @@ class Cards extends React.Component {
       })
 			.then(() => this.getCards())
 			.catch(function () {
-				throw("Error.")
+				throw('Error.')
 			});
   }
   render() {
