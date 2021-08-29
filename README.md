@@ -2,6 +2,9 @@
 
 I wanted to learn to code in React and to write app in using js, not ts. In order to get motivated I chose to create an app in which I could write down how my brewing attempts went - so far I only need date, so that I know how long to wait before the fermentation is done, and description, where I write what kind of hops and yeast I used, how long and at which temperature I brewed, so that then I can see what works and what does not.
 
+# Available at
+https://warm-eyrie-07258.herokuapp.com/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
