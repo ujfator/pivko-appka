@@ -33,7 +33,7 @@ class Cards extends React.Component {
     this.getCards = this.getCards.bind(this);
     this.state = {
       cardText: '',
-      date: '',
+      cardDate: '',
       cards: [],
     };
     this.getCards();
@@ -41,7 +41,6 @@ class Cards extends React.Component {
 
   getCards() {
     axios.get('/cards').then((value) => {
-      console.log(value.data);
       this.setState({cards: [...value.data]})
     })
   }
@@ -71,37 +70,54 @@ class Cards extends React.Component {
         text: this.state.cardText,
         date: this.state.cardDate,
       })
-			.then(() => this.getCards())
+			.then(() => {
+        this.setState({cardDate: '', cardText: ''});
+        this.getCards();
+      })
 			.catch(function () {
 				throw('Error.')
 			});
   }
+
   render() {
     return (
       <div className="content">
+        <Card className="my-card">
+          <CardHeader>Vytvořit novou kartu</CardHeader>
+          <CardBody>
+            <FormInput 
+              valid={this.state.cardDate.length}
+              invalid={!this.state.cardDate.length} 
+              placeholder="Datum" 
+              type="date" 
+              onChange={this.handleChangeDate} 
+              value={this.state.cardDate}
+            />
+            <FormTextarea 
+              valid={this.state.cardText.length} 
+              invalid={!this.state.cardText.length} 
+              className="text-area" 
+              onChange={this.handleChange} 
+              value={this.state.cardText}
+            />
+            <Button className="new-card-button" onClick={this.createNewCard}>Vytvořit</Button>
+          </CardBody>
+        </Card>
         {
           this.state?.cards.map((val, index) => 
             <Card className="my-card">
               <CardHeader>
-                <div className="my-card-header">
-                  <div className="my-card-header-text">{val.date}</div>
-                  <Button onClick={() => this.deleteCard(val.id)}>Smazat</Button>
-                </div>
+                {val.date}
               </CardHeader>
-              <CardBody>
+              <CardBody className="card-body">
                 <CardTitle>{val.text}</CardTitle>
+                <div className="delete-button">
+                  <Button onClick={() => this.deleteCard(val.myId)} className="button">Smazat</Button>
+                </div>
               </CardBody>
             </Card>
           )
         }
-        <Card className="my-card">
-          <CardHeader>Vytvořit novou kartu</CardHeader>
-          <CardBody>
-            <FormInput placeholder="Datum" onChange={this.handleChangeDate}/>
-            <FormTextarea className="text-area" onChange={this.handleChange}/>
-            <Button className ="new-card-button" onClick={this.createNewCard}>Vytvořit záznam</Button>
-          </CardBody>
-        </Card>
        </div>
     );
   }

@@ -8,23 +8,37 @@
 .content {
    display: flex;
    flex-direction: row;
-   padding: 25px;
+   padding: 20px;
+   flex-wrap: wrap
 }
 
 .my-card {
-   margin-left: 15px;
-   max-width: 300px;
+   margin: 0 0 15px 15px;
+   max-width: 350px;
+   min-width: 200px;
+   min-height: 200px;
+   max-height: 500px;
+   overflow: hidden;
 }
 
-.my-card-header {
-   display: flex;
-}
-
-.my-card-header-text {
+.card-body {
+   padding: 1.075rem !important;
    display: flex;
    flex-direction: column;
-   justify-content: space-around;
-   padding-right: 20px
+}
+
+.delete-button {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
+   align-items: flex-end;
+   flex: 1;
+   .button {
+      max-width: 100px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+   }
 }
 
 .text-area {
@@ -34,4 +48,8 @@
 
 .new-card-button {
    float: right;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   white-space: nowrap;
+   max-width: 100px;
 }

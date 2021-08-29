@@ -10,7 +10,7 @@ const cardSchema = new Schema({
         type: String,
         required: true
     },
-    id:  {
+    myId:  {
         type: String,
         required: true
     }
