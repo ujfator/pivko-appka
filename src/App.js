@@ -7,7 +7,8 @@ import { Navbar, NavbarBrand, Card,
   CardBody,
   Button,
   FormTextarea,
-  FormInput
+  FormInput,
+  FormGroup 
  } from 'shards-react';
  import axios from 'axios';
  import React from 'react';
@@ -85,22 +86,32 @@ class Cards extends React.Component {
         <Card className="my-card">
           <CardHeader>Vytvořit novou kartu</CardHeader>
           <CardBody>
-            <FormInput 
-              valid={this.state.cardDate.length}
-              invalid={!this.state.cardDate.length} 
-              placeholder="Datum" 
-              type="date" 
-              onChange={this.handleChangeDate} 
-              value={this.state.cardDate}
-            />
-            <FormTextarea 
-              valid={this.state.cardText.length} 
-              invalid={!this.state.cardText.length} 
-              className="text-area" 
-              onChange={this.handleChange} 
-              value={this.state.cardText}
-            />
-            <Button className="new-card-button" onClick={this.createNewCard}>Vytvořit</Button>
+            <form onSubmit={this.createNewCard}>
+              <FormGroup>
+                <label>Datum</label>
+                <FormInput 
+                  required
+                  placeholder="Datum" 
+                  type="date" 
+                  onChange={this.handleChangeDate} 
+                  value={this.state.cardDate}
+                />
+              </FormGroup>
+              <FormGroup>
+                <label>Popis</label>
+                <FormTextarea 
+                  required
+                  className="text-area" 
+                  onChange={this.handleChange} 
+                  value={this.state.cardText}
+                />
+                <input
+                  className="btn btn-primary submit-button" 
+                  type="submit" 
+                  value="Vytvořit"
+                />
+              </FormGroup>
+            </form>
           </CardBody>
         </Card>
         {
